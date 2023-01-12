@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useDebounce } from '../hooks/debounce';
+
 import { useSearchUsersQuery } from '../store/github/github.api';
 
-export const HomePage = () => {
+export default function HomePage() {
   const [search, setSearch] = useState('');
-  const { isLoading, isError, data } = useSearchUsersQuery('vsvs');
+  const debounced = useDebounce(search);
+  const { isLoading, isError, data } = useSearchUsersQuery(debounced);
 
   useEffect(() => {
-    console.log(search);
-  }, [search]);
+    console.log(debounced);
+  }, [debounced]);
 
   //console.log(data);
 
@@ -31,6 +34,4 @@ export const HomePage = () => {
       </div>
     </div>
   );
-};
-
-export default HomePage;
+}
