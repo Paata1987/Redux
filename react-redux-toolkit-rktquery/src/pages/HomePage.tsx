@@ -45,9 +45,9 @@ export const HomePage = () => {
         {dropdown && (
           <ul className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll shadow-md bg-white">
             {isLoading && <p className="text-center">Loading...</p>}
-            {data?.map((user) => (
+            {data?.map((user, index) => (
               <li
-                key={user.id}
+                key={index}
                 onClick={() => clickHandler(user.login)}
                 className="py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer"
               >
