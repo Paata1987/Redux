@@ -10,12 +10,17 @@ export default function HomePage() {
   const debounced = useDebounce(search);
   const { isLoading, isError, data } = useSearchUsersQuery(debounced, {
     skip: debounced.length < 3,
+    refetchOnFocus: true,
   });
 
   useEffect(() => {
     setDropdown(debounced.length > 3 && data?.length! > 0);
     console.log(debounced);
   }, [debounced]);
+
+  const clickHandler = (username: string) => {
+    console.log(username);
+  };
 
   //console.log(data);
 
@@ -33,12 +38,13 @@ export default function HomePage() {
           onChange={(event) => setSearch(event.target.value)}
         />
         {dropdown && (
-          <ul className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] shadow-md bg-white ">
+          <ul className="list-none absolute top-[42px] left-0 right-0 max-h-[200px] overflow-y-scroll rshadow-md bg-white ">
             {isLoading && <p className="text-center  ">Loading...</p>}
             {data?.map((user) => (
               <li
                 className=" py-2 px-4 hover:bg-gray-500 hover:text-white transition-colors cursor-pointer  "
                 key={user.id}
+                onClick={() => clickHandler(user.login)}
               >
                 {user.login}{' '}
               </li>
