@@ -5,19 +5,26 @@ import { IRepo } from '../models/models';
 
 const RepoCard = ({ repo }: { repo: IRepo }) => {
   const { addFavourite, removeFavourite } = useActions();
-  const { favourites } = useAppSelector((state) => state.github);
+  const { favourites, avatar } = useAppSelector((state) => state.github);
 
   const [isFavor, setIsFavor] = useState(favourites.includes(repo.html_url));
+  const [isAvatar, setIsAvatar] = useState(
+    avatar.includes(repo.owner.events_url)
+  );
 
   const addToFavourite = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     addFavourite(repo.html_url);
+    addFavourite(repo.owner.avatar_url);
     setIsFavor(true);
+    setIsAvatar(true);
   };
   const removeFromFavourite = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     removeFavourite(repo.html_url);
+    removeFavourite(repo.owner.avatar_url);
     setIsFavor(false);
+    setIsAvatar(false);
   };
 
   return (
