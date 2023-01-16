@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { stat } from 'fs';
 
 const LOCST_FAV_KEY = 'PTrfk';
 
@@ -23,6 +22,9 @@ export const githubSlice = createSlice({
       state.favourites = state.favourites.filter((f) => f !== action.payload);
       localStorage.setItem(LOCST_FAV_KEY, JSON.stringify(state.favourites));
     },
+    /*  clearLocalstorage() {
+      localStorage.clear();
+    }, */
   },
 });
 
